@@ -8,6 +8,7 @@ import java.lang.Math;
 class Deck{
 //fields
 	LinkedList cardList = new LinkedList<int>();
+
 //constructor
 public Deck(){
 	//generate 52 cards
@@ -20,10 +21,17 @@ public Deck(){
 }
 //methods
 
+
 //Shuffle
 	public void shuffle(){
 		LinkedList tempList = new LinkedList<int>(); 
+		int randElement;
+		while(cardList.size() > 0){
+			randElement = Random.ints(0,cardList.size);
+			tempList.push(cardList.get(randElement);
+		}
 	}
+
 
 //Deal hands. if deck does not contain at least 14 cards, return 0
 //should pass list by reference? If it does not work, pass back list of 14 cards
