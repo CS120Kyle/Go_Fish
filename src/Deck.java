@@ -5,9 +5,9 @@
 //imports
 import java.util.*;
 import java.lang.Math;
-class Deck{
+public class Deck{
 //fields
-	LinkedList cardList = new LinkedList<int>();
+	public LinkedList<Integer> cardList = new LinkedList<Integer>();
 
 //constructor
 public Deck(){
@@ -15,7 +15,9 @@ public Deck(){
 	for(int suit = 0; suit < 4; suit++){
 		for(int rank = 1; rank <=13; rank++){
 			//appends rank calue to cardList
-			cardlist.add(rank);
+			//TODO
+			//cardList is in the class, how do I refrerence it?
+			cardList.add(rank);
 		}
 	}
 }
@@ -24,18 +26,19 @@ public Deck(){
 
 //Shuffle
 	public void shuffle(){
-		LinkedList tempList = new LinkedList<int>(); 
+		LinkedList<Integer> tempList = new LinkedList<Integer>();
+	   	Random rand = new Random();	
 		int randElement;
 		while(cardList.size() > 0){
-			randElement = Random.ints(0,cardList.size);
-			tempList.push(cardList.get(randElement);
+			randElement = rand.nextInt(cardList.size())+1;
+			tempList.push(cardList.remove(randElement));
 		}
 	}
 
 
 //Deal hands. if deck does not contain at least 14 cards, return 0
 //should pass list by reference? If it does not work, pass back list of 14 cards
-	public void dealHands(LinkedList<int> hand1, LinkedList<int> hand2){
+	public void dealHands(LinkedList<Integer> hand1, LinkedList<Integer> hand2){
 		//check if deck contains at least 14 cards
 		if(numCards() >=14){
 
