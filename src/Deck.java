@@ -7,32 +7,40 @@ import java.util.*;
 import java.lang.Math;
 public class Deck{
 //fields
-	public LinkedList<Integer> cardList = new LinkedList<Integer>();
+	public LinkedList<Integer> cardList;
 
 //constructor
 public Deck(){
+	//init cardList
+	cardList = new LinkedList<Integer>();
 	//generate 52 cards
 	for(int suit = 0; suit < 4; suit++){
 		for(int rank = 1; rank <=13; rank++){
 			//appends rank calue to cardList
-			//TODO
-			//cardList is in the class, how do I refrerence it?
 			cardList.add(rank);
 		}
 	}
 }
 //methods
 
+//printDeck
+	public void printDeck(){
+		System.out.println(cardList.toString());
+	}
 
-//Shuffle
+
+//Shuffles cardList
+//no arguments needed
+//returns nothing
 	public void shuffle(){
 		LinkedList<Integer> tempList = new LinkedList<Integer>();
 	   	Random rand = new Random();	
 		int randElement;
 		while(cardList.size() > 0){
-			randElement = rand.nextInt(cardList.size())+1;
+			randElement = rand.nextInt(cardList.size());
 			tempList.push(cardList.remove(randElement));
 		}
+		cardList = tempList;
 	}
 
 
@@ -50,6 +58,7 @@ public Deck(){
 		}
 	}	
 
+
 //pick up one card from the top of the deck. If deck is empty, return 0
 	public int pickup(){
 		int card = 0;
@@ -59,7 +68,9 @@ public Deck(){
 		return card;
 	}
 
-//return number of cards in the deck
+
+//numCards
+//returns number of cards in the deck
 	public int numCards(){
 		return cardList.size();
 	}

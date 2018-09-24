@@ -5,6 +5,10 @@ public class DeckTest{
 		Deck myDeck = new Deck();
 		int cards = myDeck.numCards();
 		System.out.println("number of cards:"+cards);
-		System.out.println("whoop");
+		System.out.println("order before shuffling:");
+		myDeck.printDeck();
+		myDeck.shuffle();
+		System.out.println("order after string:");
+		myDeck.printDeck();
 	}//end main
 }//end class DeckTest
