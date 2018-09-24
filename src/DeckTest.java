@@ -8,7 +8,7 @@ public class DeckTest{
 		System.out.println("order before shuffling:");
 		myDeck.printDeck();
 		myDeck.shuffle();
-		System.out.println("order after string:");
+		System.out.println("order after shuffling:");
 		myDeck.printDeck();
 
 		//test dealHands and pickup
@@ -20,5 +20,10 @@ public class DeckTest{
 		System.out.println("hand1 after dealHands:" + hand1.toString());
 		System.out.println("hand2 after dealHands:" + hand2.toString());
 		System.out.println(myDeck.numCards());
+
+		//testing pickup
+		int theCard = (myDeck.pickup(hand1));
+		System.out.println("hand1 picked up a " + theCard + " " + hand1.toString());
+		myDeck.printDeck();
 	}//end main
 }//end class DeckTest

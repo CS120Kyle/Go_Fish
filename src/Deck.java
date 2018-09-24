@@ -6,10 +6,13 @@
 import java.util.*;
 import java.lang.Math;
 public class Deck{
-//fields
-	public LinkedList<Integer> cardList;
 
-//constructor
+//fields
+	private  LinkedList<Integer> cardList;
+
+
+//default constructor
+//creates a 52 card deck
 public Deck(){
 	//init cardList
 	cardList = new LinkedList<Integer>();
@@ -21,9 +24,13 @@ public Deck(){
 		}
 	}
 }
+
+
 //methods
 
 //printDeck
+//no arguments needed
+//returns nothing
 	public void printDeck(){
 		System.out.println(cardList.toString());
 	}
@@ -44,8 +51,9 @@ public Deck(){
 	}
 
 
-//Deal hands. if deck does not contain at least 14 cards, return 0
-//should pass list by reference? If it does not work, pass back list of 14 cards
+//dealHands deals 7 cards each to 2 LinkedLists passed in
+//requires 2 LinkedList hands be passed in
+//returns nothing
 	public void dealHands(LinkedList<Integer> hand1, LinkedList<Integer> hand2){
 		//check if deck contains at least 14 cards
 		if(numCards() >=14){
@@ -59,17 +67,22 @@ public Deck(){
 	}	
 
 
-//pick up one card from the top of the deck. If deck is empty, return 0
-	public int pickup(){
+
+//pickup removes top card from the deck and appends it to a list passed in
+//requires a LinkedList be passed in to add card to
+//returns card value if successful, otherwise returns 0
+	public int pickup(LinkedList<Integer> hand){
 		int card = 0;
 		if(numCards() > 0){
 			card = cardList.pop();
+			hand.add(card);
 		}
 		return card;
 	}
 
 
-//numCards
+//numCards returns the number of cards in cardList
+//no arguments needed
 //returns number of cards in the deck
 	public int numCards(){
 		return cardList.size();
