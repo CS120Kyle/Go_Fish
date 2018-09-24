@@ -1,3 +1,7 @@
+/*
+ *TODO
+ hands are arrays not linkedLists
+ */
 import java.util.*;
 
 public class DeckTest{
@@ -12,18 +16,32 @@ public class DeckTest{
 		myDeck.printDeck();
 
 		//test dealHands and pickup
-		LinkedList<Integer> hand1 = new LinkedList<Integer>();
-		LinkedList<Integer> hand2 = new LinkedList<Integer>();
-		System.out.println("hand1 before dealHands:" + hand1.toString());
-		System.out.println("hand2 before dealHands:" + hand2.toString());
+		int[] hand1 = new int[13];
+		int[] hand2 = new int[13];
+		System.out.println("hand1 before dealHands:");
+		printer(hand1);
+		System.out.println("hand2 before dealHands:");
+		printer(hand2);
 		myDeck.dealHands(hand1, hand2);
-		System.out.println("hand1 after dealHands:" + hand1.toString());
-		System.out.println("hand2 after dealHands:" + hand2.toString());
+		System.out.println("hand1 after dealHands:");
+		printer(hand1);
+		System.out.println("hand2 after dealHands:");
+		printer(hand2);
 		System.out.println(myDeck.numCards());
 
 		//testing pickup
 		int theCard = (myDeck.pickup(hand1));
-		System.out.println("hand1 picked up a " + theCard + " " + hand1.toString());
+		System.out.println("hand1 picked up a " + theCard);
+		printer(hand1);
 		myDeck.printDeck();
 	}//end main
+
+	//prints an array
+	private static void printer(int[] arr){
+		int cardVal;
+		for(int i = 0; i < arr.length; ++i){
+			cardVal = i+1;
+			System.out.println("Number of " + cardVal + "'s: " + arr[i]);
+		}
+	}
 }//end class DeckTest
