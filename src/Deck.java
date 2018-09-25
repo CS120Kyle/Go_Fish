@@ -1,6 +1,5 @@
 /*a Deck contains 52 cards (1-13)x4 at the start of the game. 
- *TODO
- hands are arrays not linked lists
+
  */
 
 //imports
@@ -14,31 +13,31 @@ public class Deck{
 
 //default constructor
 //creates a 52 card deck
-public Deck(){
-	//init cardList
-	cardList = new LinkedList<Integer>();
-	//generate 52 cards
-	for(int suit = 0; suit < 4; suit++){
-		for(int rank = 1; rank <=13; rank++){
-			//appends rank calue to cardList
-			cardList.add(rank);
+	public Deck(){
+		//init cardList
+		cardList = new LinkedList<Integer>();
+		//generate 52 cards
+		for(int suit = 0; suit < 4; suit++){
+			for(int rank = 1; rank <=13; rank++){
+				//appends rank calue to cardList
+				cardList.add(rank);
+			}
 		}
-	}
-}
+	}//end Deck constructor
 
 
 //methods
 
 //printDeck
-//no arguments needed
+//no args needed
 //returns nothing
 	public void printDeck(){
 		System.out.println(cardList.toString());
-	}
+	}//end printDeck
 
 
 //Shuffles cardList
-//no arguments needed
+//no args needed
 //returns nothing
 	public void shuffle(){
 		LinkedList<Integer> tempList = new LinkedList<Integer>();
@@ -49,7 +48,7 @@ public Deck(){
 			tempList.push(cardList.remove(randElement));
 		}
 		cardList = tempList;
-	}
+	}//end shuffle
 
 
 //dealHands deals 7 cards each to 2 LinkedLists passed in
@@ -57,7 +56,7 @@ public Deck(){
 //returns nothing
 	public void dealHands(int[] hand1, int[] hand2){
 		//check if deck contains at least 14 cards
-		if(numCards() >=14){
+		if(numCards() >=14 && hand1.length == 13 && hand2.length == 13){
 
 			//deal 7 cards to each hand
 			for(int i = 0; i < 7; ++i){
@@ -65,7 +64,7 @@ public Deck(){
 				hand2[cardList.pop()-1]++;
 			}
 		}
-	}	
+	}//end dealHands
 
 
 
@@ -79,13 +78,13 @@ public Deck(){
 			hand[card-1]++;
 		}
 		return card;
-	}
+	}//end pickup
 
 
 //numCards returns the number of cards in cardList
-//no arguments needed
+//no args needed
 //returns number of cards in the deck
 	public int numCards(){
 		return cardList.size();
-	}
-}
+	}//end numCards
+}//end Deck class
