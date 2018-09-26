@@ -6,15 +6,17 @@ import java.util.*;
 
 public class Hand{
 	//fields
+	//I cannot init handArray in constructor so it must be done here. why?
 	private int[] handArray;
 	private LinkedList<Integer> bookList;
 
 	//methods
 	
 	//default constructor
-	public void Hand(){
+	public Hand(){
 		//init handArray
 		handArray = new int[13];
+		//I would init hand array like this here: handArray = new int[13];
 		for(int i = 0; i < handArray.length; ++i){
 			handArray[i] = 0;
 		}
@@ -33,27 +35,12 @@ public class Hand{
 			if(handArray[i] == 4){
 				//book fond at handArray[i]
 				handArray[i] = 0;
-				bookList.push(i+1);
+				bookList.add(i+1);
 				found = true;
 			}
 		}
 		return found;
 	}//end findBooks
-
-
-//setHand sets handArray to an array passed in
-//requires an array of length 13 to be passed in
-//returns true if inArr is the same length as handArray
-	public Boolean setHand(int[] inArr){
-		if(inArr.length == handArray.length){
-			for(int i = 0; i < handArray.length; ++i){
-				handArray[i] = inArr[i];
-			}
-			return true;
-		}else{
-			return false;
-		}
-	}//end setHand
 
 
 //printHand prints the contents of the hand
@@ -66,23 +53,28 @@ public class Hand{
 				//check if value is a face card or ace
 				switch (i){
 					case 0: //print A
-						System.out.print("A");
+						System.out.print("A ");
+						break;
+					case 9: //printing 10 does not need an extra space
+						System.out.print("10");
 						break;
 					case 10://print J
-						System.out.print("J");
+						System.out.print("J ");
 						break;
 					case 11://print Q
-						System.out.print("Q");
+						System.out.print("Q ");
 						break;
 					case 12://print K
-						System.out.print("K");
+						System.out.print("K ");
+						break;
 					default://print i+1
 						int temp = i+1;
-						System.out.print(temp);
+						System.out.print(temp + " ");
 				}
 				System.out.print(" ");
 			}
 		}
+		System.out.println("");
 	}//end printHand
 
 
@@ -100,5 +92,32 @@ public class Hand{
 	public int numBooks(){
 		return bookList.size();
 	}//end numBooks
+
+
+//numCards returns the number of cards in a the hand
+//no args
+//returns and int
+	public int numCards(){
+		int sum = 0;
+		for(int i = 0; i < handArray.length; ++i){
+			sum += handArray[i];
+		}
+		return sum;
+	}//end numCards
+
+
+//addCard adds a card to the hand and checks for books
+//requires and int 
+//returns true if addition was successful
+	public Boolean addCard(int card){
+		int i  = card-1;
+		if(i > 13 || i < 0){
+			return false;
+		}else{
+			++handArray[i];
+			findBooks();
+			return true;
+		}
+	}//end addCard
 
 }//end Hand class

@@ -1,5 +1,4 @@
-/*a Deck contains 52 cards (1-13)x4 at the start of the game. 
-
+/*a Deck contains 52 cards (1-13)x4 at the start of the game.
  */
 
 //imports
@@ -49,36 +48,19 @@ public class Deck{
 		}
 		cardList = tempList;
 	}//end shuffle
+ 
 
 
-//dealHands deals 7 cards each to 2 LinkedLists passed in
-//requires 2 hand arrays be passed in
-//returns nothing
-	public void dealHands(int[] hand1, int[] hand2){
-		//check if deck contains at least 14 cards
-		if(numCards() >=14 && hand1.length == 13 && hand2.length == 13){
-
-			//deal 7 cards to each hand
-			for(int i = 0; i < 7; ++i){
-				hand1[cardList.pop()-1]++;
-				hand2[cardList.pop()-1]++;
-			}
-		}
-	}//end dealHands
-
-
-
-//pickup removes top card from the deck and appends it to a list passed in
-//requires a hand array be passed in to add card to
+//getCard removes top card from the deck and returns it 
+//no reqs needed
 //returns card value if successful, otherwise returns 0
-	public int pickup(int[] hand){
+	public int getCard(){
 		int card = 0;
 		if(numCards() > 0){
 			card = cardList.pop();
-			hand[card-1]++;
 		}
 		return card;
-	}//end pickup
+	}//end getCard
 
 
 //numCards returns the number of cards in cardList
@@ -87,4 +69,8 @@ public class Deck{
 	public int numCards(){
 		return cardList.size();
 	}//end numCards
+
+
+
+
 }//end Deck class
