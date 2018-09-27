@@ -23,8 +23,9 @@ public class DeckHandTest{
 		myHand.printBooks();
 		System.out.println("there are " + myHand.numBooks() + " books in the hand");
 
-
-	}
+		Boolean happened = myHand.addCard(14);
+		System.out.println(happened);
+	}//end main
 
 
 

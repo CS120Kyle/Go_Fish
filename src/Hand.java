@@ -6,7 +6,6 @@ import java.util.*;
 
 public class Hand{
 	//fields
-	//I cannot init handArray in constructor so it must be done here. why?
 	private int[] handArray;
 	private LinkedList<Integer> bookList;
 
@@ -27,25 +26,18 @@ public class Hand{
 
 
 //findBooks searches the array for values of 4, if found it appends an element that = index+1 of array
-//no arguments needed
-//returns true if at least 1 deck is found, otherwise returns false
-	public Boolean findBooks(){
-		Boolean found = false;
+	public void findBooks(){
 		for(int i = 0; i < handArray.length; ++i){
 			if(handArray[i] == 4){
 				//book fond at handArray[i]
 				handArray[i] = 0;
 				bookList.add(i+1);
-				found = true;
 			}
 		}
-		return found;
 	}//end findBooks
 
 
 //printHand prints the contents of the hand
-//no arguments needed
-//returns nothing
 	public void printHand(){
 		for(int i = 0; i < handArray.length; ++i){
 			//print the number of cards represented by the cell
@@ -79,24 +71,18 @@ public class Hand{
 
 
 //printBooks prints the rank of each book in the hand
-//no args needed
-//returns nothing
 	public void printBooks(){
 		System.out.println(bookList.toString());
 	}//end printBooks
 
 
 //numBooks returns the number of books the hand has
-//no args needed
-//returns number of cards in the book
 	public int numBooks(){
 		return bookList.size();
 	}//end numBooks
 
 
 //numCards returns the number of cards in a the hand
-//no args
-//returns and int
 	public int numCards(){
 		int sum = 0;
 		for(int i = 0; i < handArray.length; ++i){
@@ -107,17 +93,42 @@ public class Hand{
 
 
 //addCard adds a card to the hand and checks for books
-//requires and int 
 //returns true if addition was successful
 	public Boolean addCard(int card){
-		int i  = card-1;
-		if(i > 13 || i < 0){
+		//validate card
+		if(card > 13 || card < 1){
 			return false;
 		}else{
+			int i = card-1;
 			++handArray[i];
 			findBooks();
 			return true;
 		}
 	}//end addCard
+
+
+//validAsks returns an array of card values that appear at least once in handArray
+	public LinkedList<Integer> validAsks(){
+		LinkedList<Integer> asks = new LinkedList<Integer>();
+		for(int i = 0; i < handArray.length; ++i){
+			if(handArray[i] != 0)
+				for(int j = 0; j < handArray[i]; ++j){
+					asks.add(i);
+				}
+		}
+		return asks;
+	}//end validAsks
+
+//give removes card values from handArray and returns the number of occurences of that card value
+	public int give(int card){
+		int numOf = 0;
+		//validate card
+		if(card > 13 || card < 1){
+			int i = card-1;
+			numOf = handArray[i];
+			handArray[i] = 0;
+		}
+		return numOf;
+	}//end give
 
 }//end Hand class
