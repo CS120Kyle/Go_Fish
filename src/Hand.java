@@ -93,7 +93,7 @@ public class Hand{
 
 
 //addCard adds a card to the hand and checks for books
-//returns true if addition was successful
+//returns true if addition casused a book to spawn
 	public Boolean addCard(int card){
 		//validate card
 		if(card > 13 || card < 1){
@@ -101,8 +101,8 @@ public class Hand{
 		}else{
 			int i = card-1;
 			++handArray[i];
-			findBooks();
-			return true;
+			Boolean b = findBooks();
+			return b;
 		}
 	}//end addCard
 
