@@ -127,7 +127,7 @@ public class Hand{
 	public int give(int card){
 		int numOf = 0;
 		//validate card
-		if(card > 13 || card < 1){
+		if(card <= 13 && card >= 1){
 			int i = card-1;
 			numOf = handArray[i];
 			handArray[i] = 0;
