@@ -26,14 +26,18 @@ public class Hand{
 
 
 //findBooks searches the array for values of 4, if found it appends an element that = index+1 of array
-	public void findBooks(){
+//if a book is found, it returns true
+	public Boolean findBooks(){
+		Boolean b = false;
 		for(int i = 0; i < handArray.length; ++i){
 			if(handArray[i] == 4){
 				//book fond at handArray[i]
 				handArray[i] = 0;
 				bookList.add(i+1);
+				b = true;
 			}
 		}
+		return b;
 	}//end findBooks
 
 
