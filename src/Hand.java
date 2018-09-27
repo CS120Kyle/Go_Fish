@@ -131,4 +131,17 @@ public class Hand{
 		return numOf;
 	}//end give
 
+//inHand returns true if the hand contains at least one of those card values
+	public Boolean inHand(int val){
+		//validate val
+		if(val <= 13 && val >= 1){
+			if(handArray[val-1] > 0){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	}//end inHand
 }//end Hand class
