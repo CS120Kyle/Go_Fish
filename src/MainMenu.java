@@ -15,9 +15,9 @@ public class MainMenu {
 			 //Init menu
 			int menuI = Menu();
 			if (menuI == -1){
-			System.out.println("Quitting game");
-			playGame = false;
-			break;
+				System.out.println("Quitting game");
+				playGame = false;
+				break;
 			} else if(menuI == 1){
 				System.out.println("Starting game with standard difficulty");
 				difficulty = 1;
@@ -29,29 +29,28 @@ public class MainMenu {
 			}
 		 }
 		 
-	
-	if (playGame){	 
-		 //Deal deck
+		
+		if (playGame){	 
+			 //Deal deck
 			firstDeal(pubDeck, myHand, opHand);
 			
-			System.out.print("Your hand:	");
-			myHand.printHand();
+			//System.out.print("Your hand:	");
+			//myHand.printHand();
 			opHand.printHand();
 			//game loop
-			while (true){
+			while (pubDeck.numCards() > 0){
 				
 				
 				playerTurn(myHand, opHand, pubDeck, difficulty);
 				//System.out.println(willLie(difficulty));
-				
+					
 				//playerTurn(myHand, opHand, pubDeck, difficulty);
 				//myHand.printHand();
 				//myHand.printBooks();
 			}
-			
-		 }
-		 
-	}
+			System.out.println("game over");	
+		 }		
+	}//end main
 
 	
 	
@@ -64,32 +63,34 @@ public class MainMenu {
 		System.out.println("Welcome to Go Fish!");
 		System.out.println("Created by X for CS 205");
 		while(true){
-		System.out.println("Menu Controls:: press D to chose difficulty:: press P to play game (Standard difficulty):: press Q to quit:: 	");
-		String menu01 = menuRead.nextLine();
-		if (menu01.equals("Q") || menu01.equals("q")){
-			return -1;
+			System.out.println("Menu Controls:: press D to chose difficulty:: press P to play game (Standard difficulty):: press Q to quit:: 	");
+			String menu01 = menuRead.nextLine();
+			if (menu01.equals("Q") || menu01.equals("q")){
+				return -1;
 				
-		} else if (menu01.equals("P")|| menu01.equals("p")){
-			return 1;
-		} else if (menu01.equals("D")|| menu01.equals("d")){
-			
-			System.out.println("Choose Difficulty:: press 1 for easy:: press 2 for hard");
-			int menu02 = menuRead.nextInt();
-			if (menu02 == 1){ 
+			} else if (menu01.equals("P")|| menu01.equals("p")){
 				return 1;
-			} else if(menu02 == 2){
-				return 2;
-			} 
+			} else if (menu01.equals("D")|| menu01.equals("d")){
 			
-		} 
-		System.out.println("Incorrect command");
+				System.out.println("Choose Difficulty:: press 1 for easy:: press 2 for hard");
+				int menu02 = menuRead.nextInt();
+				if (menu02 == 1){ 
+					return 1;
+				} else if(menu02 == 2){
+					return 2;
+				} 
+			
+			} 
+			System.out.println("Incorrect command");
 		}
-	}
+	}//end Menu
+
 	//function allows player to choose cards from their hand and returns an int of the card;
 	public static int handControl(Hand playerHand){
 		Scanner s = new Scanner(System.in);
 		//int numList[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 		//add if (13 or king, 1 or a, so that it works correctly)
+		System.out.print("player's hand:  ");
 		playerHand.printHand();
 		System.out.println("Choose Card: ");
 		String choice = s.nextLine();
@@ -186,6 +187,8 @@ public class MainMenu {
 			} else {
 				System.out.println("You can't ask for that card, it isn't in your hand.");
 			}
+		}else{
+			System.out.println("Not a valid choice");
 		}
 		return -1;
 		
@@ -208,24 +211,32 @@ public class MainMenu {
 		while (i == -1){
 			i = handControl(playerHand);
 		}
-		System.out.println("out of the loop");
+		//System.out.println("out of the loop");
 		if(opHand.inHand(i)){
 			opHasCard = true;
 			System.out.println("op has card");
+		}else{
+			System.out.println("op does not have card");
 		}
 		
 		//choose card from players hand and check if op has card
-		//if op has card 
+		//if op has card and does not lie, it will give card
 		if (opHasCard && !willLie(difficulty)){
 			int x = opHand.give(i);
-			System.out.println(x);
+			System.out.println("op has " + x + " " + i + "'s");
 			for (int j = 0;  j < x; j++){
-				playerHand.addCard(i);
+				if(playerHand.addCard(i)){
+					System.out.println("made a book with card from ops hand");
+				}
 			}
 			
 		}  else {
 		//if op doesnt have card
-			playerHand.addCard(mainDeck.getCard());
+		//TODO
+		//should get extra turn for correct picked up card
+			if(playerHand.addCard(mainDeck.getCard())){
+				System.out.println("made a book with a card from the deck");
+			}
 		}
 		
 	}
