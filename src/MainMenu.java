@@ -36,7 +36,7 @@ public class MainMenu {
 			
 			//System.out.print("Your hand:	");
 			//myHand.printHand();
-			opHand.printHand();
+			//opHand.printHand();
 			int numBooks = 0;
 			//game loop
 			while(numBooks < 13){
@@ -46,11 +46,15 @@ public class MainMenu {
 					numBooks++;
 					System.out.println("number of books: " + numBooks);
 				}
+				
 				//System.out.println(willLie(difficulty));
 					
 				//playerTurn(myHand, opHand, pubDeck, difficulty);
 				//myHand.printHand();
 				//myHand.printBooks();
+				//
+				//TODO
+				//numBooks = sum of both hand's books 
 			}
 			System.out.println("game over");
 			System.out.println("-----final score-----");
@@ -122,11 +126,11 @@ public class MainMenu {
 				System.out.println("You cant ask for that card, it isnt in your hand.");
 			}
 		} else if(choice.equals("4") ) {
-				if (playerHand.inHand(4)){
-					return 4;
-				} else {
-					System.out.println("You cant ask for that card, it isnt in your hand.");
-				}
+			if (playerHand.inHand(4)){
+				return 4;
+			} else {
+				System.out.println("You cant ask for that card, it isnt in your hand.");
+			}
 		} else if(choice.equals("5") ) {
 			if (playerHand.inHand(5)){
 				return 5;
@@ -204,6 +208,7 @@ public class MainMenu {
 		Random r = new Random();
 		double x = r.nextDouble();
 		if (x > difficulty){
+			System.out.println("HA! I've lied");
 			return true;
 			
 		} else {
@@ -211,22 +216,24 @@ public class MainMenu {
 		}
 		
 	}
-	public static Boolean playerTurn(Hand playerHand, Hand opHand, Deck mainDeck, double difficulty){
-		boolean opHasCard = false;
+	public static void playerTurn(Hand playerHand, Hand opHand, Deck mainDeck, double difficulty){
+		boolean opHasCard;
 		System.out.println("Players turn");
 		int i = -1;
 		while (i == -1){
 			i = handControl(playerHand);
 		}
-		//System.out.println("out of the loop");
+
+		//determine if op has card
 		if(opHand.inHand(i)){
 			opHasCard = true;
 			System.out.println("op has card");
 		}else{
+			opHasCard = false;
 			System.out.println("op does not have card");
 		}
 		
-		//choose card from players hand and check if op has card
+		//take card from op
 		//if op has card and does not lie, it will give card
 		if (opHasCard && !willLie(difficulty)){
 			int x = opHand.give(i);
@@ -234,27 +241,26 @@ public class MainMenu {
 			for (int j = 0;  j < x; j++){
 				if(playerHand.addCard(i)){
 					System.out.println("made a book with card from ops hand");
-					return true;
 				}
 			}
 			
 		}  else {
-		//if op doesnt have card
-		//TODO
+		//if op doesnt have card or has lied
 		//should get extra turn for correct picked up card
-			if(playerHand.addCard(mainDeck.getCard())){
-				System.out.println("made a book with a card from the deck");
-				return true;
+			int card = mainDeck.getCard();
+			playerHand.addCard(card);
+			if(card == i){
+				//free turn
+				playerTurn(playerHand, opHand, mainDeck, difficulty);
+
 			}
 		}
-		return false;
 	}
 	public static void opTurn(Hand opHand, Hand playerHand, Deck mainDeck){
 		System.out.println("Oponents turn");
 		opHand.printHand();
 		//choose random card
 		//oponent has memory add guessed cards to an array, if there arent any valid guesses ignore list 
-		
 	}
 	public static void firstDeal(Deck d, Hand h1, Hand h2){
 		d.shuffle();
