@@ -37,18 +37,25 @@ public class MainMenu {
 			//System.out.print("Your hand:	");
 			//myHand.printHand();
 			opHand.printHand();
+			int numBooks = 0;
 			//game loop
-			while (pubDeck.numCards() > 0){
+			while(numBooks < 13){
 				
 				
-				playerTurn(myHand, opHand, pubDeck, difficulty);
+				if(playerTurn(myHand, opHand, pubDeck, difficulty)){
+					numBooks++;
+					System.out.println("number of books: " + numBooks);
+				}
 				//System.out.println(willLie(difficulty));
 					
 				//playerTurn(myHand, opHand, pubDeck, difficulty);
 				//myHand.printHand();
 				//myHand.printBooks();
 			}
-			System.out.println("game over");	
+			System.out.println("game over");
+			System.out.println("-----final score-----");
+			System.out.println("you:\t" + myHand.numBooks());
+			System.out.println("comp\t"+opHand.numBooks());
 		 }		
 	}//end main
 
@@ -204,7 +211,7 @@ public class MainMenu {
 		}
 		
 	}
-	public static void playerTurn(Hand playerHand, Hand opHand, Deck mainDeck, double difficulty){
+	public static Boolean playerTurn(Hand playerHand, Hand opHand, Deck mainDeck, double difficulty){
 		boolean opHasCard = false;
 		System.out.println("Players turn");
 		int i = -1;
@@ -227,6 +234,7 @@ public class MainMenu {
 			for (int j = 0;  j < x; j++){
 				if(playerHand.addCard(i)){
 					System.out.println("made a book with card from ops hand");
+					return true;
 				}
 			}
 			
@@ -236,9 +244,10 @@ public class MainMenu {
 		//should get extra turn for correct picked up card
 			if(playerHand.addCard(mainDeck.getCard())){
 				System.out.println("made a book with a card from the deck");
+				return true;
 			}
 		}
-		
+		return false;
 	}
 	public static void opTurn(Hand opHand, Hand playerHand, Deck mainDeck){
 		System.out.println("Oponents turn");
