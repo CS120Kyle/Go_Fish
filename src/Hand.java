@@ -111,10 +111,9 @@ public class Hand{
 	public LinkedList<Integer> validAsks(){
 		LinkedList<Integer> asks = new LinkedList<Integer>();
 		for(int i = 0; i < handArray.length; ++i){
-			if(handArray[i] != 0)
-				for(int j = 0; j < handArray[i]; ++j){
-					asks.add(i);
-				}
+			if(handArray[i] != 0){
+				asks.add(i);
+			}
 		}
 		return asks;
 	}//end validAsks
