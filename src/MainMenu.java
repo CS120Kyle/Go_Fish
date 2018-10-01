@@ -42,10 +42,7 @@ public class MainMenu {
 			while(numBooks < 13){
 				
 				
-				if(playerTurn(myHand, opHand, pubDeck, difficulty)){
-					numBooks++;
-					System.out.println("number of books: " + numBooks);
-				}
+				playerTurn(myHand, opHand, pubDeck, difficulty);
 				
 				//System.out.println(willLie(difficulty));
 					
@@ -55,6 +52,8 @@ public class MainMenu {
 				//
 				//TODO
 				//numBooks = sum of both hand's books 
+				numBooks = myHand.numBooks() + opHand.numBooks();
+				//System.out.println(numBooks);
 			}
 			System.out.println("game over");
 			System.out.println("-----final score-----");
@@ -217,13 +216,12 @@ public class MainMenu {
 		
 	}
 	public static void playerTurn(Hand playerHand, Hand opHand, Deck mainDeck, double difficulty){
-		boolean opHasCard;
 		System.out.println("Players turn");
 		int i = -1;
 		while (i == -1){
 			i = handControl(playerHand);
 		}
-
+		Boolean opHasCard;
 		//determine if op has card
 		if(opHand.inHand(i)){
 			opHasCard = true;
@@ -251,11 +249,17 @@ public class MainMenu {
 			playerHand.addCard(card);
 			if(card == i){
 				//free turn
+				System.out.println("got the card I was looking for. Free turn!");
 				playerTurn(playerHand, opHand, mainDeck, difficulty);
 
 			}
 		}
 	}
+
+	//TODO
+	//opTurn needs to pick a card to ask player
+	//if on hard difficulty, use array and maybe look at players hand
+	//if on normal difficulty, ask for a random valid card
 	public static void opTurn(Hand opHand, Hand playerHand, Deck mainDeck){
 		System.out.println("Oponents turn");
 		opHand.printHand();
