@@ -27,13 +27,24 @@ public class Deck{
 
 //methods
 
+<<<<<<< HEAD
 //printDeck prints all cards in the deck in the order they appear in cardList
+=======
+//printDeck
+//no args needed
+//returns nothing
+>>>>>>> main
 	public void printDeck(){
 		System.out.println(cardList.toString());
 	}//end printDeck
 
 
 //Shuffles cardList
+<<<<<<< HEAD
+=======
+//no args needed
+//returns nothing
+>>>>>>> main
 	public void shuffle(){
 		LinkedList<Integer> tempList = new LinkedList<Integer>();
 	   	Random rand = new Random();	
@@ -48,6 +59,10 @@ public class Deck{
 
 
 //getCard removes top card from the deck and returns it 
+<<<<<<< HEAD
+=======
+//no reqs needed
+>>>>>>> main
 //returns card value if successful, otherwise returns 0
 	public int getCard(){
 		int card = 0;
@@ -59,6 +74,11 @@ public class Deck{
 
 
 //numCards returns the number of cards in cardList
+<<<<<<< HEAD
+=======
+//no args needed
+//returns number of cards in the deck
+>>>>>>> main
 	public int numCards(){
 		return cardList.size();
 	}//end numCards
