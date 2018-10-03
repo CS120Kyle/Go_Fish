@@ -211,7 +211,7 @@ public class MainMenu {
 			} else {
 				System.out.println("You cant ask for that card, it isnt in your hand.");
 			}
-		} else if(choice.equals("q") || choice.equals("q")) {
+		} else if(choice.equals("Q") || choice.equals("q")) {
 			if (playerHand.inHand(12)){
 				System.out.println("Do you have any Queens?");
 				return 12;
@@ -248,14 +248,17 @@ public class MainMenu {
 	//if no cards are available to pick up, forfit the turn
 	public static void playerTurn(Hand playerHand, Hand opHand, Deck mainDeck, double difficulty){
 		boolean opHasCard = false;
-		System.out.println("Players turn");
+		System.out.println("\nPlayers turn:");
 		//check if player has at least 1 card in hand
 		if(playerHand.numCards() == 0){
 			System.out.println("No cards in hand. pick one up if possible or forfit turn");
 			int inCard = mainDeck.getCard();
 			if(inCard != 0){
 				//deck is not empty, pick up card and continue game
-				playerHand.addCard(inCard);
+				if(playerHand.addCard(inCard)){
+					logBooks(playerHand, opHand);
+					System.out.println("makde a book with a card from the deck");
+				}
 			}else{
 				//forfit turn
 				return;
@@ -270,9 +273,9 @@ public class MainMenu {
 		//System.out.println("out of the loop");
 		if(opHand.inHand(i)){
 			opHasCard = true;
-			System.out.println("op has card");
+			//System.out.println("op has card");
 		}else{
-			System.out.println("op does not have card");
+			//System.out.println("op does not have card");
 		}
 		
 		//choose card from players hand and check if op has card
@@ -280,10 +283,11 @@ public class MainMenu {
 		if (opHasCard && !willLie(difficulty)){
 			int x = opHand.give(i);
 			//System.out.println(x);
-			System.out.println("Opponent has "+ x + " Cards");
+			System.out.println("Opponent has "+ x + " of those");
 			for (int j = 0;  j < x; j++){
 				if(playerHand.addCard(i)){
 					System.out.println("made a book with card from ops hand");
+					logBooks(playerHand, opHand);
 				}
 			}
 			
@@ -293,7 +297,10 @@ public class MainMenu {
 		//should get extra turn for correct picked up card
 			System.out.println("Go Fish!");
 			int card = mainDeck.getCard();
-			playerHand.addCard(card);
+			if(playerHand.addCard(card)){
+				System.out.println("made a book with card from the deck");
+				logBooks(playerHand, opHand);
+			}
 			if(card == i){
 				//player gets a free turn
 				System.out.println("player gets a free turn");
@@ -343,21 +350,24 @@ public class MainMenu {
 	public static void opTurn(Hand opHand, Hand playerHand, Deck mainDeck, boolean mem, LinkedList<Integer> opMemory){
 		Random r = new Random();
 		
-		System.out.println("Oponents turn:");
+		System.out.println("\nOponents turn:");
 		
 		//check if player has at least 1 card in hand
 		if(opHand.numCards() == 0){
-			System.out.println("No cards in hand. pick one up if possible or forfit turn");
+			//System.out.println("No cards in hand. pick one up if possible or forfit turn");
 			int inCard = mainDeck.getCard();
 			if(inCard != 0){
 				//deck is not empty, pick up card and continue game
-				opHand.addCard(inCard);
+				if(opHand.addCard(inCard)){
+					logBooks(playerHand, opHand);
+					System.out.println("opponent made a book with card from deck");
+				}
 			}else{
 				//forfit turn
 				return;
 			}
 		}
-		opHand.printHand();
+		//opHand.printHand();
 		LinkedList<Integer> valid = opHand.validAsks();
 		//error is caused when opHand has no cards
 		int randomGuess;
@@ -382,9 +392,10 @@ public class MainMenu {
 		if (playerHand.inHand(guess)){
 			int x = playerHand.give(guess);
 			//System.out.println(x);
-			System.out.println("Player has "+ x + " Cards");
+			System.out.println("Player has "+ x + " of those");
 			for (int j = 0;  j < x; j++){
 				if(opHand.addCard(guess)){
+					System.out.println("opponent made book with card from your hand");
 					//op got book
 					logBooks(playerHand,opHand);
 				}
@@ -394,9 +405,12 @@ public class MainMenu {
 			if (mem) {
 				opMemory.add(guess);
 			}
-			System.out.println("Go Fish");
+			System.out.println("Go Fish!");
 			int card = mainDeck.getCard();
-			opHand.addCard(card);
+			if(opHand.addCard(card)){
+				System.out.println("oppponent made book with card from the deck");
+				logBooks(playerHand, opHand);
+			}
 			if(card == guess){
 				//free turn
 				System.out.println("computer gets a free turn");
@@ -512,7 +526,7 @@ public class MainMenu {
     
     public static void logFinalScore(Hand myHand, Hand opHand){
     	try{
-    		FileWriter writer = new FileWriter("log.txt", false);
+    		FileWriter writer = new FileWriter("log.txt", true);
             writer.write("------Game Over------");
             writer.write("\r\n");
             writer.write("-----Final Stats-----");
