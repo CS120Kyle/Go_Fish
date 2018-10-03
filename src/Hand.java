@@ -147,10 +147,15 @@ public class Hand{
 			return false;
 		}
 	}//end inHand
+
+	//getter for bookList
 	public LinkedList<Integer> getBookList(){
 		return bookList;
-	}
+	}//end getBookList
+
+	//getter for handArray
 	public int[] getHandArray() {
 		return handArray;
-	}
+	}//end getHandArray
+
 }//end Hand class
