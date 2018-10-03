@@ -71,6 +71,7 @@ public class MainMenu {
 			System.out.println("-----Game Over-----");
 			System.out.println("player score:\t" + myHand.numBooks());
 			System.out.println("computer score:\t" + opHand.numBooks());
+			logFinalScore(myHand, opHand);
 			
 		 }
 		 
