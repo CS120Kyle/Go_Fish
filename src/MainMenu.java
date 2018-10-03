@@ -85,9 +85,9 @@ public class MainMenu {
 		Scanner menuRead = new Scanner(System.in);
 		
 		System.out.println("Welcome to Go Fish!");
-		System.out.println("Created by X for CS 205");
+		System.out.println("Created by Liam, Kyle, Andrew and Andrew for CS 205");
 		while(true){
-		System.out.println("Menu Controls:: press D to chose difficulty:: press P to play game (Standard difficulty):: press Q to quit:: 	");
+		System.out.println("Menu Controls:: press D to choose difficulty:: press P to play game (Standard difficulty):: press Q to quit:: 	");
 		String menu01 = menuRead.nextLine();
 		if (menu01.equals("Q") || menu01.equals("q")){
 			return -1;
@@ -95,14 +95,22 @@ public class MainMenu {
 		} else if (menu01.equals("P")|| menu01.equals("p")){
 			return 1;
 		} else if (menu01.equals("D")|| menu01.equals("d")){
-			
+			int menu02 = 0;
+			while(true) {
 			System.out.println("Choose Difficulty:: press 1 for easy:: press 2 for hard");
-			int menu02 = menuRead.nextInt();
-			if (menu02 == 1){ 
+			try{
+				menu02 = menuRead.nextInt();
+			}
+			catch (Exception e){
+				System.out.println("Invalid entry, try again!");
+				menuRead.next();
+			}
+			if (menu02 == 1){
 				return 1;
 			} else if(menu02 == 2){
 				return 2;
 			} 
+			}
 			
 		} 
 		System.out.println("Incorrect command");
