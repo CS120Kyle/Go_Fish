@@ -70,7 +70,7 @@ public class MainMenu {
 			//game is over. print results
 			System.out.println("-----Game Over-----");
 			System.out.println("player score:\t" + myHand.numBooks());
-			System.out.println("computer score\t" + opHand.numBooks());
+			System.out.println("computer score:\t" + opHand.numBooks());
 			
 		 }
 		 
@@ -225,9 +225,27 @@ public class MainMenu {
 		}
 		
 	}
+
+	//TODO
+	//needs to check if player has at least 1 card before continuing their turn, othersiwe pick up a card
+	//if no cards are available to pick up, forfit the turn
 	public static void playerTurn(Hand playerHand, Hand opHand, Deck mainDeck, double difficulty){
 		boolean opHasCard = false;
 		System.out.println("Players turn");
+		//check if player has at least 1 card in hand
+		if(playerHand.numCards() == 0){
+			System.out.println("No cards in hand. pick one up if possible or forfit turn");
+			int inCard = mainDeck.getCard();
+			if(inCard != 0){
+				//deck is not empty, pick up card and continue game
+				playerHand.addCard(inCard);
+			}else{
+				//forfit turn
+				return;
+			}
+		}
+
+
 		int i = -1;
 		while (i == -1){
 			i = handControl(playerHand);
@@ -303,6 +321,19 @@ public class MainMenu {
 		Random r = new Random();
 		
 		System.out.println("Oponents turn:");
+		
+		//check if player has at least 1 card in hand
+		if(opHand.numCards() == 0){
+			System.out.println("No cards in hand. pick one up if possible or forfit turn");
+			int inCard = mainDeck.getCard();
+			if(inCard != 0){
+				//deck is not empty, pick up card and continue game
+				opHand.addCard(inCard);
+			}else{
+				//forfit turn
+				return;
+			}
+		}
 		opHand.printHand();
 		LinkedList<Integer> valid = opHand.validAsks();
 		//error is caused when opHand has no cards
