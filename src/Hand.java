@@ -9,13 +9,10 @@ public class Hand{
 	private int[] handArray;
 	private LinkedList<Integer> bookList;
 
-	//methods
-	
 	//default constructor
 	public Hand(){
 		//init handArray
-		handArray = new int[13];
-		//I would init hand array like this here: handArray = new int[13];
+		handArray = new int[13];	
 		for(int i = 0; i < handArray.length; ++i){
 			handArray[i] = 0;
 		}
@@ -122,6 +119,7 @@ public class Hand{
 		return asks;
 	}//end validAsks
 
+
 //give removes card values from handArray and returns the number of occurences of that card value
 	public int give(int card){
 		int numOf = 0;
@@ -133,6 +131,7 @@ public class Hand{
 		}
 		return numOf;
 	}//end give
+
 
 //inHand returns true if the hand contains at least one of those card values
 	public Boolean inHand(int val){
@@ -148,10 +147,12 @@ public class Hand{
 		}
 	}//end inHand
 
+
 	//getter for bookList
 	public LinkedList<Integer> getBookList(){
 		return bookList;
 	}//end getBookList
+
 
 	//getter for handArray
 	public int[] getHandArray() {
