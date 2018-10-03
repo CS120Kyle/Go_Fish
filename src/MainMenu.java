@@ -367,7 +367,7 @@ public class MainMenu {
 	}
 	public static void logNewGame(Hand myHand, Hand opHand, double diff){
     	try{
-    		FileWriter writer = new FileWriter("My.txt", false);
+    		FileWriter writer = new FileWriter("log.txt", false);
             writer.write("------NEW GAME------");
             writer.write("\r\n");
             writer.write("\r\n");
@@ -397,7 +397,7 @@ public class MainMenu {
     	
     	
 		try{
-    		FileWriter writer = new FileWriter("My.txt", true);
+    		FileWriter writer = new FileWriter("log.txt", true);
             writer.write("\r\n");
             if(turn){
             	writer.write("Player's turn:");
@@ -436,7 +436,7 @@ public class MainMenu {
     
     public static void logBooks(Hand myHand, Hand opHand){
     	try{
-    		FileWriter writer = new FileWriter("My.txt", true);
+    		FileWriter writer = new FileWriter("log.txt", true);
     		writer.write("\r\n");
             writer.write("------BOOKS------");
             writer.write("\r\n");
@@ -458,7 +458,7 @@ public class MainMenu {
     
     public static void logFinalScore(Hand myHand, Hand opHand){
     	try{
-    		FileWriter writer = new FileWriter("My.txt", false);
+    		FileWriter writer = new FileWriter("log.txt", false);
             writer.write("------Game Over------");
             writer.write("\r\n");
             writer.write("-----Final Stats-----");
