@@ -13,7 +13,7 @@ public class MainMenu {
 		Hand myHand = new Hand();
 		Hand opHand = new Hand();
 		double difficulty = 1;
-		LinkedList<Integer> opMemory = new LinkedList(); 
+		LinkedList<Integer> opMemory = new LinkedList<Integer>(); 
 		Scanner read = new Scanner(System.in);
 		
 		 while(true){
@@ -41,19 +41,36 @@ public class MainMenu {
 			firstDeal(pubDeck, myHand, opHand);
 			
 			int numBooks = 0;
+			//determine turn order
+			int turn;
+			Random r = new Random();
+			double turnSeed = r.nextDouble();
+			if(turnSeed > 0.5){
+				turn = 1;
+			}else{
+				turn = 0;
+			}
 			//game loop
 			while (numBooks < 13){
 				
-				
-				playerTurn(myHand, opHand, pubDeck, difficulty);
+				if(turn%2 == 0){
+					//player turn
+					playerTurn(myHand, opHand, pubDeck, difficulty);
+				}else{
+					//comp turn
+					opTurn(opHand, myHand, pubDeck, memory, opMemory);
+				}
 				//System.out.println(willLie(difficulty));
-				opTurn(opHand, myHand, pubDeck, memory, opMemory);
 				System.out.println(opMemory.toString());
-				//playerTurn(myHand, opHand, pubDeck, difficulty);
 				//myHand.printHand();
 				//myHand.printBooks();
 				numBooks = myHand.numBooks() + opHand.numBooks();
+				++turn;
 			}
+			//game is over. print results
+			System.out.println("-----Game Over-----");
+			System.out.println("player score:\t" + myHand.numBooks());
+			System.out.println("computer score\t" + opHand.numBooks());
 			
 		 }
 		 
@@ -234,7 +251,16 @@ public class MainMenu {
 		}  else {
 		//if op doesnt have card
 			System.out.println("Go Fish!");
-			playerHand.addCard(mainDeck.getCard());
+			int card = mainDeck.getCard();
+			playerHand.addCard(card);
+			if(card == i){
+				//player gets a free turn
+				System.out.println("player gets a free turn");
+				int books = playerHand.numBooks()+opHand.numBooks();
+				if(books < 13){
+					playerTurn(playerHand, opHand, mainDeck, difficulty);
+				}
+			}
 			
 		}
 		
@@ -279,7 +305,13 @@ public class MainMenu {
 		System.out.println("Oponents turn:");
 		opHand.printHand();
 		LinkedList<Integer> valid = opHand.validAsks();
-		int randomGuess =  r.nextInt(valid.size());
+		//error is caused when opHand has no cards
+		int randomGuess;
+		if(valid.size() > 0){
+			randomGuess =  r.nextInt(valid.size());
+		}else{
+			randomGuess = 0;
+		}
 		int guess = valid.get(randomGuess);
 		if (mem){
 			for(int i = 0; i < opMemory.size(); i++){
@@ -313,7 +345,11 @@ public class MainMenu {
 			opHand.addCard(card);
 			if(card == guess){
 				//free turn
-				opTurn(opHand, playerHand, mainDeck, mem, opMemory);
+				System.out.println("computer gets a free turn");
+				int books = opHand.numBooks()+playerHand.numBooks();
+				if(books < 13){
+					opTurn(opHand, playerHand, mainDeck, mem, opMemory);
+				}
 			}
 			logTurn(false,guess,false,playerHand,opHand);
 		}
